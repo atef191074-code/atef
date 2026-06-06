@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صياغة الأهداف السلوكية وتفعيلها في تنفيذ خطة الدرس اليومية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f2419;
+    --ink-soft:#3c5345;
+    --paper:#f4efe4;
+    --paper-2:#ece4d4;
+    --gold:#b48a3c;
+    --gold-deep:#9a6f29;
+    --green:#1f5d3f;
+    --green-bright:#2c7d54;
+    --rust:#a8442a;
+    --line:#d8cdb6;
+    --shadow:0 18px 48px -20px rgba(15,36,25,.45);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Tajawal',sans-serif;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(180,138,60,.10), transparent 40%),
+      radial-gradient(circle at 88% 100%, rgba(31,93,63,.10), transparent 42%),
+      var(--paper);
+    color:var(--ink);
+    line-height:1.85;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%23b48a3c' stroke-opacity='0.05'%3E%3Cpath d='M80 10 L100 40 L80 70 L60 40 Z'/%3E%3Cpath d='M80 90 L100 120 L80 150 L60 120 Z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity:.7;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+
+  /* ---------- TOP BAR ---------- */
+  header.topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(244,239,228,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{max-width:920px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
+  .crest{
+    width:42px;height:42px;flex:none;border-radius:11px;
+    background:linear-gradient(145deg,var(--green),var(--green-bright));
+    display:grid;place-items:center;color:#f4efe4;box-shadow:var(--shadow);
+    font-family:'Reem Kufi';font-weight:700;font-size:20px;
+  }
+  .topbar h1{font-family:'Reem Kufi';font-size:clamp(15px,2.4vw,19px);font-weight:600;line-height:1.4;color:var(--ink)}
+  .topbar h1 span{display:block;font-family:'Tajawal';font-weight:400;font-size:12px;color:var(--ink-soft)}
+
+  /* progress rail */
+  .rail{max-width:920px;margin:0 auto;padding:10px 20px 14px;display:flex;gap:6px;flex-wrap:wrap}
+  .rail .seg{flex:1;min-width:70px;height:6px;border-radius:99px;background:var(--paper-2);position:relative;overflow:hidden}
+  .rail .seg.done{background:linear-gradient(90deg,var(--green),var(--green-bright))}
+  .rail .seg.active{background:var(--gold)}
+  .rail-labels{max-width:920px;margin:0 auto;padding:0 20px 10px;display:flex;gap:6px;flex-wrap:wrap}
+  .rail-labels span{flex:1;min-width:70px;text-align:center;font-size:10.5px;color:var(--ink-soft);font-weight:500}
+
+  /* ---------- STAGE ---------- */
+  .stage{display:none;animation:rise .5s cubic-bezier(.2,.7,.3,1) both;padding:34px 0 80px}
+  .stage.show{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  .card{
+    background:linear-gradient(180deg,#fbf7ee,#f3ecdd);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:clamp(22px,4vw,40px);
+    position:relative;
+  }
+  .card::before{
+    content:"";position:absolute;inset:7px;border:1px solid rgba(180,138,60,.28);border-radius:calc(var(--radius) - 7px);pointer-events:none;
+  }
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Reem Kufi';font-size:12px;letter-spacing:.5px;color:var(--gold-deep);background:rgba(180,138,60,.12);border:1px solid rgba(180,138,60,.3);padding:5px 13px;border-radius:99px;margin-bottom:16px}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--gold)}
+  h2.title{font-family:'Reem Kufi';font-size:clamp(22px,4vw,30px);font-weight:700;color:var(--ink);line-height:1.4;margin-bottom:8px}
+  h3.sub{font-family:'Reem Kufi';font-size:18px;color:var(--green);margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(31,93,63,.18);display:inline-block}
+  p.lead{color:var(--ink-soft);font-size:15.5px;margin-bottom:6px}
+  .theory p{margin:10px 0;font-size:15.5px}
+  .theory ul{margin:10px 26px;font-size:15px}
+  .theory li{margin:7px 0}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .pill{background:var(--paper-2);border:1px solid var(--line);border-radius:10px;padding:7px 13px;font-size:13.5px;font-weight:500;color:var(--ink-soft)}
+
+  .note{background:rgba(31,93,63,.07);border-right:4px solid var(--green);border-radius:12px;padding:14px 18px;margin:16px 0;font-size:14.5px}
+  .note b{color:var(--green)}
+  .bloom{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0}
+  .bloom .lvl{border-radius:12px;padding:13px 15px;color:#f7f2e7;font-size:13.5px;box-shadow:var(--shadow)}
+  .bloom .lvl b{display:block;font-family:'Reem Kufi';font-size:15px;margin-bottom:3px}
+  .bloom .lvl small{opacity:.92;display:block;line-height:1.5}
+
+  /* fields */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field.full{grid-column:1/-1}
+  label{font-size:13.5px;font-weight:600;color:var(--ink)}
+  label .req{color:var(--rust)}
+  input[type=text],input[type=email],select{
+    font-family:'Tajawal';font-size:15px;padding:12px 14px;border-radius:11px;
+    border:1.5px solid var(--line);background:#fdfaf3;color:var(--ink);transition:.2s;
+  }
+  input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(180,138,60,.15)}
+
+  /* quiz */
+  .q{background:#fdfaf3;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0;transition:.25s}
+  .q .qhead{display:flex;gap:10px;font-weight:700;font-size:15.5px;margin-bottom:13px;color:var(--ink)}
+  .q .qnum{flex:none;width:27px;height:27px;border-radius:8px;background:var(--green);color:#f4efe4;display:grid;place-items:center;font-family:'Reem Kufi';font-size:14px}
+  .opt{display:flex;align-items:center;gap:11px;padding:11px 14px;border:1.5px solid var(--line);border-radius:11px;margin:8px 0;cursor:pointer;font-size:14.5px;background:#fff;transition:.18s}
+  .opt:hover{border-color:var(--gold);background:#fffdf6}
+  .opt input{accent-color:var(--green);width:17px;height:17px;flex:none}
+  .opt.picked{border-color:var(--green);background:rgba(31,93,63,.07)}
+  .opt.correct{border-color:var(--green-bright);background:rgba(44,125,84,.14)}
+  .opt.wrong{border-color:var(--rust);background:rgba(168,68,42,.1)}
+  .opt .tag{margin-inline-start:auto;font-size:12px;font-weight:700}
+  .opt.correct .tag{color:var(--green-bright)}
+  .opt.wrong .tag{color:var(--rust)}
+
+  /* activity */
+  .activity{background:rgba(180,138,60,.07);border:1px dashed var(--gold);border-radius:14px;padding:18px 20px;margin:16px 0}
+  .activity h4{font-family:'Reem Kufi';color:var(--gold-deep);font-size:16px;margin-bottom:8px}
+  textarea{width:100%;font-family:'Tajawal';font-size:14.5px;padding:12px 14px;border-radius:11px;border:1.5px solid var(--line);background:#fdfaf3;min-height:90px;resize:vertical;color:var(--ink)}
+  textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(180,138,60,.15)}
+  .model-toggle{margin-top:10px;font-size:13.5px;color:var(--green);background:none;border:none;cursor:pointer;font-weight:700;font-family:'Tajawal';text-decoration:underline}
+  .model-ans{display:none;margin-top:10px;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink-soft)}
+  .model-ans.show{display:block;animation:rise .3s both}
+
+  /* buttons + result */
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{font-family:'Reem Kufi';font-weight:600;font-size:15.5px;padding:13px 26px;border-radius:12px;border:none;cursor:pointer;transition:.22s;display:inline-flex;align-items:center;gap:9px}
+  .btn.primary{background:linear-gradient(145deg,var(--green),var(--green-bright));color:#f4efe4;box-shadow:var(--shadow)}
+  .btn.primary:hover{transform:translateY(-2px)}
+  .btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink-soft)}
+  .btn.gold{background:linear-gradient(145deg,var(--gold),var(--gold-deep));color:#fff;box-shadow:var(--shadow)}
+  .btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+
+  .result{display:none;margin-top:22px;border-radius:14px;padding:20px 22px;animation:rise .4s both}
+  .result.show{display:block}
+  .result.pass{background:rgba(44,125,84,.12);border:1.5px solid var(--green-bright)}
+  .result.fail{background:rgba(168,68,42,.1);border:1.5px solid var(--rust)}
+  .result h4{font-family:'Reem Kufi';font-size:19px;margin-bottom:6px}
+  .result.pass h4{color:var(--green)}
+  .result.fail h4{color:var(--rust)}
+  .score{font-family:'Reem Kufi';font-size:34px;font-weight:700}
+  .result.pass .score{color:var(--green-bright)}
+  .result.fail .score{color:var(--rust)}
+
+  /* certificate */
+  .cert-frame{background:#fcf8ee;border:3px double var(--gold);border-radius:14px;padding:clamp(24px,5vw,52px);text-align:center;position:relative;box-shadow:var(--shadow);margin-top:10px}
+  .cert-frame::before{content:"";position:absolute;inset:11px;border:1px solid rgba(31,93,63,.4);border-radius:8px;pointer-events:none}
+  .cert-seal{width:78px;height:78px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle,var(--gold),var(--gold-deep));display:grid;place-items:center;color:#fff;font-family:'Reem Kufi';font-size:13px;line-height:1.2;box-shadow:0 8px 22px -8px rgba(154,111,41,.7)}
+  .cert-frame .ttl{font-family:'Amiri';font-size:clamp(26px,5vw,40px);font-weight:700;color:var(--green);margin:6px 0}
+  .cert-frame .ar-name{font-family:'Reem Kufi';font-size:clamp(22px,4vw,32px);font-weight:700;color:var(--ink);border-bottom:2px solid var(--gold);display:inline-block;padding:4px 30px;margin:14px 0}
+  .cert-frame p{color:var(--ink-soft);font-size:15.5px;margin:6px auto;max-width:560px}
+  .cert-meta{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:22px;font-size:14px}
+  .cert-meta div b{display:block;font-family:'Reem Kufi';color:var(--green);font-size:17px}
+  .hidden{display:none!important}
+  footer{text-align:center;padding:30px 20px 50px;color:var(--ink-soft);font-size:12.5px}
+  .small{font-size:12.5px;color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="crest">هـ</div>
+    <h1>صياغة الأهداف السلوكية وتفعيلها في تنفيذ خطة الدرس اليومية
+      <span>حقيبة تدريبية رقمية ذاتية • تصحيح آلي عبر الذكاء الاصطناعي</span>
+    </h1>
+  </div>
+  <div class="rail" id="rail"></div>
+  <div class="rail-labels">
+    <span>التسجيل</span><span>اختبار قبلي</span><span>الوحدة 1</span><span>الوحدة 2</span><span>الاختبار البعدي</span><span>الشهادة</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ STAGE 0: REGISTRATION ============ -->
+<section class="stage show" data-stage="0">
+  <div class="card">
+    <span class="eyebrow">المرحلة الأولى</span>
+    <h2 class="title">صفحة التسجيل والاختبار القبلي</h2>
+    <p class="lead">أدخل بياناتك بدقة؛ ستُستخدم إيميلات المنسق والنائب الأكاديمي لإرسال نسخة الشهادة وتقرير الاجتياز آلياً.</p>
+
+    <h3 class="sub">بيانات المعلّم</h3>
+    <div class="grid">
+      <div class="field"><label>الاسم الكامل <span class="req">*</span></label><input type="text" id="f_name" placeholder="مثال: أحمد بن محمد"></div>
+      <div class="field"><label>القسم <span class="req">*</span></label>
+        <select id="f_dept">
+          <option value="">— اختر القسم —</option>
+          <option>اللغة العربية</option><option>اللغة الإنجليزية</option><option>الرياضيات</option>
+          <option>العلوم</option><option>الدراسات الإسلامية</option><option>الاجتماعيات</option>
+          <option>الحاسب الآلي</option><option>التربية الفنية</option><option>التربية البدنية</option>
+        </select>
+      </div>
+      <div class="field"><label>إيميل المعلّم <span class="req">*</span></label><input type="email" id="f_email" placeholder="teacher@school.edu"></div>
+      <div class="field"><label>إيميل المنسّق <span class="req">*</span></label><input type="email" id="f_coord" placeholder="coordinator@school.edu"></div>
+      <div class="field full"><label>إيميل النائب الأكاديمي <span class="req">*</span></label><input type="email" id="f_vice" placeholder="vice.academic@school.edu"></div>
+    </div>
+
+    <h3 class="sub">الاختبار القبلي (قياسي • بدون شرط رسوب)</h3>
+    <p class="small">5 أسئلة موضوعية لقياس مستواك المبدئي. يُصحَّح آلياً وتُسجَّل نتيجتك مرجعياً فقط — لا يمنع الاستمرار.</p>
+    <div id="preQuiz"></div>
+
+    <div class="actions">
+      <button class="btn primary" onclick="startJourney()">بدء البرنامج التدريبي ←</button>
+    </div>
+    <div class="result" id="preResult"></div>
+  </div>
+</section>
+
+<!-- ============ STAGE 1: PRE (handled inline above) — placeholder kept for rail logic ============ -->
+
+<!-- ============ STAGE 2: UNIT 1 ============ -->
+<section class="stage" data-stage="2">
+  <div class="card">
+    <span class="eyebrow">الوحدة التدريبية الأولى</span>
+    <h2 class="title">صياغة الأهداف السلوكية ومستويات بلوم</h2>
+
+    <h3 class="sub">الإطار النظري</h3>
+    <div class="theory">
+      <p>الهدف السلوكي هو عبارة تصف <b>سلوكاً قابلاً للملاحظة والقياس</b> يُتوقّع أن يؤديه المتعلّم بعد انتهاء الموقف التعليمي. وتقوم الصياغة السليمة على معادلة واضحة:</p>
+      <div class="pill-row">
+        <span class="pill">أن + فعل سلوكي</span>
+        <span class="pill">+ المتعلّم</span>
+        <span class="pill">+ المحتوى</span>
+        <span class="pill">+ شرط الأداء</span>
+        <span class="pill">+ معيار الإتقان</span>
+      </div>
+      <p>مثال مكتمل: «<b>أن يُعرب</b> الطالبُ ثلاث جمل اسمية إعراباً تاماً دون أخطاء في زمن لا يتجاوز خمس دقائق».</p>
+      <div class="note"><b>شروط الهدف الجيّد:</b> أن يبدأ بفعل سلوكي إجرائي، أن يصف سلوك المتعلّم لا نشاط المعلّم، أن يكون قابلاً للقياس، وأن يتضمّن سلوكاً واحداً فقط لكل هدف.</div>
+      <p>تُجنَّب الأفعال غير القابلة للقياس مثل (يفهم، يعرف، يدرك، يستوعب) لأنها تصف حالات داخلية لا تُلاحَظ مباشرة، وتُستبدل بأفعال إجرائية مثل (يُعدّد، يُقارن، يُحلّل، يُصمّم).</p>
+
+      <h3 class="sub">مستويات بلوم المعرفية (المنقّحة)</h3>
+      <div class="bloom">
+        <div class="lvl" style="background:linear-gradient(145deg,#2c7d54,#1f5d3f)"><b>1 • التذكّر</b><small>يُعرّف، يُعدّد، يذكر، يسترجع</small></div>
+        <div class="lvl" style="background:linear-gradient(145deg,#3a8a62,#2c7d54)"><b>2 • الفهم</b><small>يُفسّر، يُلخّص, يُمثّل, يشرح</small></div>
+        <div class="lvl" style="background:linear-gradient(145deg,#b48a3c,#9a6f29)"><b>3 • التطبيق</b><small>يستخدم, يُنفّذ, يحلّ, يُطبّق</small></div>
+        <div class="lvl" style="background:linear-gradient(145deg,#c1923f,#b48a3c)"><b>4 • التحليل</b><small>يُميّز, يُقارن, يُحلّل, يربط</small></div>
+        <div class="lvl" style="background:linear-gradient(145deg,#a8442a,#8a3722)"><b>5 • التقويم</b><small>يحكم, يُقيّم, ينقد, يُبرّر</small></div>
+        <div class="lvl" style="background:linear-gradient(145deg,#bf5038,#a8442a)"><b>6 • الإبداع</b><small>يُصمّم, يبتكر, يُؤلّف, يُنتج</small></div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <h4>نشاط تطبيقي ذاتي (1)</h4>
+      <p class="small">صُغ هدفاً سلوكياً واحداً من مادتك يحقق المعادلة الخماسية، ثم حدّد مستواه في هرم بلوم.</p>
+      <textarea id="act1" placeholder="اكتب هدفك السلوكي هنا..."></textarea>
+      <button class="model-toggle" onclick="toggleModel('m1')">عرض إجابة نموذجية ▾</button>
+      <div class="model-ans" id="m1">«أن يُصمّم الطالبُ خريطة مفاهيم لدرس التمثيل الضوئي مستوفياً ثلاثة عناصر رئيسة دون مساعدة» — المستوى: <b>الإبداع (6)</b>؛ لاحظ الفعل الإجرائي + شرط الأداء (دون مساعدة) + معيار الإتقان (ثلاثة عناصر).</div>
+    </div>
+
+    <h3 class="sub">اختبار اجتياز الوحدة الأولى</h3>
+    <p class="small">5 أسئلة موضوعية • شرط الانتقال: <b>80% فأكثر</b> (4 من 5). أقل من ذلك → إعادة توجيه للمراجعة.</p>
+    <div id="u1Quiz"></div>
+
+    <div class="actions">
+      <button class="btn ghost" onclick="goStage(0)">→ رجوع</button>
+      <button class="btn primary" onclick="gradeUnit(1)">تصحيح والانتقال للوحدة 2 ←</button>
+    </div>
+    <div class="result" id="u1Result"></div>
+  </div>
+</section>
+
+<!-- ============ STAGE 3: UNIT 2 ============ -->
+<section class="stage" data-stage="3">
+  <div class="card">
+    <span class="eyebrow">الوحدة التدريبية الثانية</span>
+    <h2 class="title">تفعيل الأهداف في خطة الدرس والتقويم</h2>
+
+    <h3 class="sub">الإطار النظري</h3>
+    <div class="theory">
+      <p>لا قيمة للهدف السلوكي ما لم يُترجَم إلى <b>إجراءات تنفيذية</b> داخل خطة الدرس اليومية. ويتحقق التفعيل عبر مبدأ <b>المواءمة الثلاثية (Alignment)</b> بين ثلاثة أركان متلازمة:</p>
+      <div class="bloom" style="grid-template-columns:repeat(auto-fit,minmax(170px,1fr))">
+        <div class="lvl" style="background:linear-gradient(145deg,#1f5d3f,#143f2b)"><b>الأهداف</b><small>ماذا نريد أن يتعلّمه الطالب؟</small></div>
+        <div class="lvl" style="background:linear-gradient(145deg,#b48a3c,#9a6f29)"><b>استراتيجيات التعلّم</b><small>كيف نوصله إلى الهدف؟</small></div>
+        <div class="lvl" style="background:linear-gradient(145deg,#a8442a,#8a3722)"><b>أدوات التقويم</b><small>كيف نتحقق من تحقّقه؟</small></div>
+      </div>
+      <p>كل هدف يجب أن يقابله نشاط تعليمي مناسب لمستواه في بلوم، وأداة تقويم تقيسه بدقّة. فهدف من مستوى «التطبيق» لا يُقاس بسؤال «تذكّر»، بل بمهمة أدائية.</p>
+      <div class="note"><b>قاعدة الاتساق:</b> إذا كان الهدف «أن يُحلّل»، فالنشاط يجب أن يضع الطالب في موقف تحليل، والتقويم يجب أن يطلب تحليلاً — وإلا اختلّت المواءمة.</div>
+
+      <h3 class="sub">أنواع التقويم المرتبط بالأهداف</h3>
+      <ul>
+        <li><b>تقويم قبلي:</b> يقيس المعارف السابقة قبل بدء الدرس لتحديد نقطة الانطلاق.</li>
+        <li><b>تقويم بنائي (تكويني):</b> يرافق التنفيذ لحظةً بلحظة ويوجّه التغذية الراجعة الفورية.</li>
+        <li><b>تقويم ختامي:</b> يقيس مدى بلوغ الأهداف في نهاية الدرس عبر مؤشرات أداء واضحة.</li>
+      </ul>
+      <p>وتُربط كل أداة تقويم بمؤشر نجاح مشتق مباشرةً من معيار الإتقان المكتوب في الهدف، لتصبح خطة الدرس <b>منظومة متكاملة قابلة للقياس</b>.</p>
+    </div>
+
+    <div class="activity">
+      <h4>نشاط تطبيقي ذاتي (2)</h4>
+      <p class="small">خذ الهدف الذي صغته في الوحدة 1، واكتب له: نشاطاً تعليمياً مناسباً + أداة تقويم تقيسه + مؤشر نجاح.</p>
+      <textarea id="act2" placeholder="الهدف / النشاط / أداة التقويم / مؤشر النجاح..."></textarea>
+      <button class="model-toggle" onclick="toggleModel('m2')">عرض إجابة نموذجية ▾</button>
+      <div class="model-ans" id="m2"><b>الهدف:</b> أن يحلّل الطالب نصاً أدبياً. <b>النشاط:</b> عمل تعاوني يفكّك النص إلى عناصره. <b>أداة التقويم:</b> سلّم تقدير (Rubric) أدائي. <b>مؤشر النجاح:</b> تحديد 4 عناصر فأكثر بدقة = إتقان.</div>
+    </div>
+
+    <h3 class="sub">اختبار اجتياز الوحدة الثانية</h3>
+    <p class="small">5 أسئلة موضوعية • شرط الانتقال: <b>80% فأكثر</b> (4 من 5).</p>
+    <div id="u2Quiz"></div>
+
+    <div class="actions">
+      <button class="btn ghost" onclick="goStage(2)">→ رجوع</button>
+      <button class="btn primary" onclick="gradeUnit(2)">تصحيح والانتقال للاختبار البعدي ←</button>
+    </div>
+    <div class="result" id="u2Result"></div>
+  </div>
+</section>
+
+<!-- ============ STAGE 4: POST TEST ============ -->
+<section class="stage" data-stage="4">
+  <div class="card">
+    <span class="eyebrow">المرحلة الختامية</span>
+    <h2 class="title">الاختبار البعدي الشامل</h2>
+    <p class="lead">10 أسئلة موضوعية متكاملة تقيس الجانبين النظري والتطبيقي. شرط الاجتياز ومنح الشهادة: <b>80% فأكثر</b> (8 من 10).</p>
+    <div id="postQuiz"></div>
+    <div class="actions">
+      <button class="btn ghost" onclick="goStage(3)">→ رجوع</button>
+      <button class="btn gold" onclick="gradePost()">تصحيح الاختبار البعدي وإصدار الوسم</button>
+    </div>
+    <div class="result" id="postResult"></div>
+  </div>
+</section>
+
+<!-- ============ STAGE 5: CERTIFICATE ============ -->
+<section class="stage" data-stage="5">
+  <div class="card">
+    <span class="eyebrow">النتيجة النهائية</span>
+    <h2 class="title">شهادة اجتياز البرنامج</h2>
+    <div class="cert-frame" id="certFrame">
+      <div class="cert-seal">معتمدة<br>رقمياً</div>
+      <p class="small" style="letter-spacing:2px">شهادة إتمام واجتياز برنامج تدريبي</p>
+      <div class="ttl">شهادة اجتياز</div>
+      <p>تشهد إدارة التطوير والتدريب بأنّ المعلّم/ـة</p>
+      <div class="ar-name" id="certName">—</div>
+      <p>قد أتمّ بنجاح البرنامج التدريبي <b>«صياغة الأهداف السلوكية وتفعيلها في تنفيذ خطة الدرس اليومية»</b> واجتاز اختباره البعدي الشامل مستوفياً شرط الإتقان.</p>
+      <div class="cert-meta">
+        <div>القسم<b id="certDept">—</b></div>
+        <div>نسبة الإتقان<b id="certPct">—</b></div>
+        <div>التاريخ<b id="certDate">—</b></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:22px">
+      <b>الأتمتة المؤتمتة:</b> عند صدور الوسم <b>[PASSED]</b> تُرسَل نسخة PDF من هذه الشهادة وتقرير الاجتياز تلقائياً إلى بريد <b>المنسّق</b> و<b>النائب الأكاديمي</b> عبر Make / Zapier. حمولة البيانات (Payload) الجاهزة للإرسال أدناه.
+    </div>
+    <details style="margin-top:14px">
+      <summary style="cursor:pointer;font-family:'Reem Kufi';color:var(--green);font-weight:600">عرض حمولة JSON المُرسلة لبوابة الأتمتة ▾</summary>
+      <pre id="payloadBox" style="background:#0f2419;color:#e9f3ec;padding:18px;border-radius:12px;overflow:auto;font-size:12.5px;margin-top:10px;direction:ltr;text-align:left;line-height:1.7"></pre>
+    </details>
+
+    <div class="actions">
+      <button class="btn primary" onclick="window.print()">طباعة / حفظ PDF</button>
+      <button class="btn ghost" onclick="location.reload()">بدء جلسة جديدة</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>حقيبة تدريبية رقمية ذاتية • نظام تصحيح آلي مدعوم بالذكاء الاصطناعي عبر Claude • جاهزة للربط مع Make &amp; Zapier</footer>
+
+<script>
+/* ============================================================
+   بنك الأسئلة + مفاتيح الحل  (key = فهرس الخيار الصحيح، يبدأ من 0)
+   ============================================================ */
+const BANK = {
+  pre:[
+    {q:"الهدف السلوكي عبارة تصف سلوكاً ينبغي أن يكون:",o:["داخلياً غير ملاحظ","قابلاً للملاحظة والقياس","خاصاً بنشاط المعلّم","عاماً وغير محدد"],k:1},
+    {q:"أيٌّ من الأفعال التالية لا يصلح في صياغة هدف سلوكي قابل للقياس؟",o:["يُعدّد","يُقارن","يفهم","يُصمّم"],k:2},
+    {q:"عدد مستويات هرم بلوم المعرفي (المنقّح):",o:["أربعة","خمسة","ستة","سبعة"],k:2},
+    {q:"تبدأ صياغة الهدف السلوكي عادةً بـ:",o:["أن + فعل سلوكي","اسم المعلّم","عنوان الدرس","رقم الحصة"],k:0},
+    {q:"الغرض الأساسي من تحديد معيار الإتقان في الهدف هو:",o:["تطويل الجملة","تحديد مستوى الأداء المقبول","ذكر اسم الطالب","تحديد زمن الحصة فقط"],k:1}
+  ],
+  u1:[
+    {q:"المعادلة الكاملة للهدف السلوكي تتضمن: أن + فعل + متعلّم + محتوى + ...",o:["لون الورقة","شرط الأداء ومعيار الإتقان","اسم المدرسة","عدد الطلاب"],k:1},
+    {q:"الفعل «يُحلّل» ينتمي إلى مستوى بلوم:",o:["التذكّر","الفهم","التحليل","التطبيق"],k:2},
+    {q:"أعلى مستويات هرم بلوم المنقّح هو:",o:["التقويم","الإبداع","التطبيق","الفهم"],k:1},
+    {q:"الفعل «يُعرّف، يذكر، يُعدّد» يدل على مستوى:",o:["التذكّر","الإبداع","التقويم","التحليل"],k:0},
+    {q:"يُرفض الفعل «يعرف» في الهدف السلوكي لأنه:",o:["طويل","لا يصف سلوكاً قابلاً للقياس","صعب النطق","قديم"],k:1}
+  ],
+  u2:[
+    {q:"المواءمة الثلاثية (Alignment) تربط بين الأهداف والاستراتيجيات و:",o:["ألوان السبورة","أدوات التقويم","عدد الحصص","أثاث الصف"],k:1},
+    {q:"التقويم الذي يرافق تنفيذ الدرس ويوجّه التغذية الراجعة الفورية هو:",o:["القبلي","البنائي (التكويني)","الختامي","الذاتي فقط"],k:1},
+    {q:"هدف من مستوى «التطبيق» يُقاس بشكل أنسب عبر:",o:["سؤال استرجاع","مهمة أدائية","غياب التقويم","سؤال صح/خطأ بسيط"],k:1},
+    {q:"يُشتق مؤشر النجاح في التقويم مباشرةً من:",o:["معيار الإتقان في الهدف","اسم الكتاب","رغبة المعلّم","لون الزي"],k:0},
+    {q:"التقويم الذي يقيس مدى بلوغ الأهداف في نهاية الدرس هو:",o:["القبلي","البنائي","الختامي","التشخيصي"],k:2}
+  ],
+  post:[
+    {q:"الهدف السلوكي الجيّد يصف سلوك:",o:["المعلّم","المتعلّم القابل للقياس","الإدارة","ولي الأمر"],k:1},
+    {q:"أيٌّ من الأفعال غير الإجرائية يُتجنّب في الصياغة؟",o:["يُصمّم","يُقارن","يستوعب","يُعدّد"],k:2},
+    {q:"الفعل «يُصمّم، يبتكر، يُؤلّف» يقابل مستوى:",o:["التذكّر","الإبداع","الفهم","التطبيق"],k:1},
+    {q:"تتضمّن المعادلة الخماسية للهدف شرط الأداء و:",o:["معيار الإتقان","لون القلم","رقم الصف","الزمن فقط"],k:0},
+    {q:"عدد مستويات بلوم المعرفية المنقّحة:",o:["5","6","7","4"],k:1},
+    {q:"المواءمة الثلاثية تشمل: الأهداف + التقويم +",o:["استراتيجيات التعلّم","الفسحة","الواجبات المنزلية فقط","الإذاعة"],k:0},
+    {q:"التقويم البنائي يحدث:",o:["قبل الدرس","أثناء تنفيذ الدرس","بعد العام الدراسي","لا يحدث"],k:1},
+    {q:"هدف «أن يُحلّل» تقيسه أداة تطلب من الطالب:",o:["الحفظ","التحليل","النسخ","الترديد"],k:1},
+    {q:"مؤشر النجاح يُشتق من:",o:["معيار الإتقان في الهدف","عنوان الوحدة","عدد الطلاب","الجدول"],k:0},
+    {q:"الغاية من ربط الهدف بالنشاط والتقويم هي:",o:["تطويل الخطة","بناء منظومة متكاملة قابلة للقياس","إرضاء المشرف فقط","ملء الفراغ"],k:1}
+  ]
+};
+
+const state={name:"",dept:"",email:"",coord:"",vice:"",scores:{}};
+
+/* ----- بناء أسئلة الاختبار ----- */
+function renderQuiz(bankKey, mountId){
+  const host=document.getElementById(mountId);host.innerHTML="";
+  BANK[bankKey].forEach((item,i)=>{
+    const q=document.createElement("div");q.className="q";q.dataset.idx=i;
+    let opts=item.o.map((t,j)=>`
+      <label class="opt" data-opt="${j}">
+        <input type="radio" name="${bankKey}_${i}" value="${j}">
+        <span>${t}</span>
+      </label>`).join("");
+    q.innerHTML=`<div class="qhead"><span class="qnum">${i+1}</span><span>${item.q}</span></div>${opts}`;
+    host.appendChild(q);
+  });
+  host.querySelectorAll(".opt").forEach(o=>o.addEventListener("click",()=>{
+    o.closest(".q").querySelectorAll(".opt").forEach(x=>x.classList.remove("picked"));
+    o.classList.add("picked");
+  }));
+}
+
+/* ----- التصحيح الآلي ----- */
+function grade(bankKey, mountId, reveal=true){
+  const host=document.getElementById(mountId);
+  let correct=0;const total=BANK[bankKey].length;
+  BANK[bankKey].forEach((item,i)=>{
+    const qEl=host.querySelector(`.q[data-idx="${i}"]`);
+    const chosen=qEl.querySelector("input:checked");
+    const pick=chosen?parseInt(chosen.value):-1;
+    if(pick===item.k)correct++;
+    if(reveal){
+      qEl.querySelectorAll(".opt").forEach(o=>{
+        const j=parseInt(o.dataset.opt);
+        o.classList.remove("picked");
+        if(j===item.k){o.classList.add("correct");o.insertAdjacentHTML("beforeend",'<span class="tag">✓ الصحيحة</span>');}
+        if(j===pick&&pick!==item.k){o.classList.add("wrong");o.insertAdjacentHTML("beforeend",'<span class="tag">✗ إجابتك</span>');}
+      });
+    }
+  });
+  const pct=Math.round(correct/total*100);
+  return {correct,total,pct,pass:pct>=80};
+}
+
+/* ----- التنقّل بين المراحل ----- */
+const STAGES=[0,2,3,4,5]; // المنطقية المعروضة (التسجيل يضم القبلي)
+let currentLogical=0;
+function buildRail(){
+  const rail=document.getElementById("rail");rail.innerHTML="";
+  for(let i=0;i<6;i++){const s=document.createElement("div");s.className="seg";s.id="seg"+i;rail.appendChild(s);}
+  updateRail(0);
+}
+function updateRail(active){
+  for(let i=0;i<6;i++){const s=document.getElementById("seg"+i);s.className="seg";if(i<active)s.classList.add("done");if(i===active)s.classList.add("active");}
+}
+function goStage(dataStage){
+  document.querySelectorAll(".stage").forEach(s=>s.classList.remove("show"));
+  const t=document.querySelector(`.stage[data-stage="${dataStage}"]`);
+  if(t)t.classList.add("show");
+  const railMap={0:0,2:2,3:3,4:4,5:5};updateRail(railMap[dataStage]);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ----- بدء الرحلة: تحقق البيانات + تصحيح القبلي ----- */
+function startJourney(){
+  state.name=val("f_name");state.dept=val("f_dept");state.email=val("f_email");
+  state.coord=val("f_coord");state.vice=val("f_vice");
+  if(!state.name||!state.dept||!state.email||!state.coord||!state.vice){
+    alert("الرجاء تعبئة جميع الحقول الإلزامية قبل المتابعة.");return;
+  }
+  const r=grade("pre","preQuiz",true);
+  state.scores.pre=r;
+  const box=document.getElementById("preResult");
+  box.className="result show pass";
+  box.innerHTML=`<h4>تم تسجيل نتيجتك القبلية ✓</h4>
+    <div class="score">${r.pct}%</div>
+    <p>أصبت ${r.correct} من ${r.total}. هذه النتيجة مرجعية فقط ولا تمنع الاستمرار. بالتوفيق في الوحدات التدريبية!</p>`;
+  setTimeout(()=>goStage(2),900);
+}
+
+/* ----- تصحيح وحدة (شرط 80%) ----- */
+function gradeUnit(n){
+  const map={1:{bank:"u1",mount:"u1Quiz",res:"u1Result",next:3},2:{bank:"u2",mount:"u2Quiz",res:"u2Result",next:4}};
+  const c=map[n];const r=grade(c.bank,c.mount,true);state.scores["u"+n]=r;
+  const box=document.getElementById(c.res);box.classList.add("show");
+  if(r.pass){
+    box.className="result show pass";
+    box.innerHTML=`<h4>اجتزت الوحدة ${n} بنجاح ✓ [PASSED]</h4><div class="score">${r.pct}%</div>
+      <p>أصبت ${r.correct} من ${r.total} — تحقق شرط الإتقان (80%+). يمكنك الانتقال للمرحلة التالية.</p>`;
+    setTimeout(()=>goStage(c.next),1100);
+  }else{
+    box.className="result show fail";
+    box.innerHTML=`<h4>لم يتحقق شرط الإتقان ✗ [REVIEW]</h4><div class="score">${r.pct}%</div>
+      <p>أصبت ${r.correct} من ${r.total}. النسبة أقل من 80% — يُعاد توجيهك لمراجعة المادة النظرية أعلاه ثم إعادة المحاولة.</p>
+      <button class="btn ghost" style="margin-top:12px" onclick="retryUnit(${n})">إعادة المحاولة ↻</button>`;
+  }
+}
+function retryUnit(n){
+  const map={1:{bank:"u1",mount:"u1Quiz",res:"u1Result"},2:{bank:"u2",mount:"u2Quiz",res:"u2Result"}};
+  renderQuiz(map[n].bank,map[n].mount);
+  document.getElementById(map[n].res).className="result";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ----- تصحيح الاختبار البعدي + الوسم ----- */
+function gradePost(){
+  const r=grade("post","postQuiz",true);state.scores.post=r;
+  const box=document.getElementById("postResult");box.classList.add("show");
+  if(r.pass){
+    box.className="result show pass";
+    box.innerHTML=`<h4>مبروك! اجتزت الاختبار البعدي ✓ [PASSED]</h4><div class="score">${r.pct}%</div>
+      <p>أصبت ${r.correct} من ${r.total}. تحقق شرط منح الشهادة (80%+). جارٍ إصدار شهادتك وإرسال النسخ المؤتمتة...</p>`;
+    setTimeout(issueCertificate,1300);
+  }else{
+    box.className="result show fail";
+    box.innerHTML=`<h4>لم تجتز الاختبار البعدي ✗ [FAILED]</h4><div class="score">${r.pct}%</div>
+      <p>أصبت ${r.correct} من ${r.total}. النسبة أقل من 80% — راجع الوحدتين ثم أعد الاختبار. لن تُرسَل الشهادة قبل الاجتياز.</p>
+      <button class="btn ghost" style="margin-top:12px" onclick="renderQuiz('post','postQuiz');document.getElementById('postResult').className='result';window.scrollTo({top:0,behavior:'smooth'})">إعادة المحاولة ↻</button>`;
+  }
+}
+
+/* ----- إصدار الشهادة + حمولة الأتمتة ----- */
+function issueCertificate(){
+  const pct=state.scores.post.pct;
+  const today=new Date().toLocaleDateString("ar-EG-u-nu-latn",{year:"numeric",month:"long",day:"numeric"});
+  document.getElementById("certName").textContent=state.name;
+  document.getElementById("certDept").textContent=state.dept;
+  document.getElementById("certPct").textContent=pct+"%";
+  document.getElementById("certDate").textContent=today;
+  const payload={
+    status:"PASSED",
+    program:"صياغة الأهداف السلوكية وتفعيلها في تنفيذ خطة الدرس اليومية",
+    teacher_name:state.name,
+    department:state.dept,
+    teacher_email:state.email,
+    coordinator_email:state.coord,
+    vice_academic_email:state.vice,
+    scores:{
+      pre:state.scores.pre.pct,
+      unit1:state.scores.u1.pct,
+      unit2:state.scores.u2.pct,
+      post_test:pct
+    },
+    final_percentage:pct,
+    issue_date:today,
+    certificate_variables:{ "{{الاسم}}":state.name, "{{القسم}}":state.dept, "{{النسبة}}":pct+"%" }
+  };
+  document.getElementById("payloadBox").textContent=JSON.stringify(payload,null,2);
+  goStage(5);
+}
+
+/* ----- أدوات مساعدة ----- */
+function val(id){return document.getElementById(id).value.trim();}
+function toggleModel(id){document.getElementById(id).classList.toggle("show");}
+
+/* ----- تهيئة ----- */
+buildRail();
+renderQuiz("pre","preQuiz");
+renderQuiz("u1","u1Quiz");
+renderQuiz("u2","u2Quiz");
+renderQuiz("post","postQuiz");
+</script>
+</body>
+</html>
