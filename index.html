@@ -166,6 +166,9 @@
   .cert-frame p{color:var(--ink-soft);font-size:15.5px;margin:6px auto;max-width:560px}
   .cert-meta{display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin-top:22px;font-size:14px}
   .cert-meta div b{display:block;font-family:'Reem Kufi';color:var(--green);font-size:17px}
+  .cert-signs{display:flex;justify-content:space-around;gap:18px;flex-wrap:wrap;margin-top:34px;padding-top:8px}
+  .cert-signs .sign{flex:1;min-width:140px;text-align:center;font-family:'Reem Kufi';font-size:14px;font-weight:600;color:var(--ink)}
+  .cert-signs .sign-line{display:block;height:42px;margin-bottom:8px;border-bottom:1.5px dashed var(--gold-deep)}
   .hidden{display:none!important}
   footer{text-align:center;padding:30px 20px 50px;color:var(--ink-soft);font-size:12.5px}
   .small{font-size:12.5px;color:var(--ink-soft)}
@@ -343,15 +346,22 @@
     <h2 class="title">شهادة اجتياز البرنامج</h2>
     <div class="cert-frame" id="certFrame">
       <div class="cert-seal">معتمدة<br>رقمياً</div>
-      <p class="small" style="letter-spacing:2px">شهادة إتمام واجتياز برنامج تدريبي</p>
+      <p class="small" style="letter-spacing:1px;font-weight:700;color:var(--green)">مدرسة ابن خلدون الإعدادية للبنين</p>
+      <p class="small" style="letter-spacing:2px">إدارة المدرسة — شهادة إتمام واجتياز برنامج تدريبي</p>
       <div class="ttl">شهادة اجتياز</div>
-      <p>تشهد إدارة التطوير والتدريب بأنّ المعلّم/ـة</p>
+      <p>تشهد إدارة مدرسة ابن خلدون الإعدادية للبنين بأنّ المعلّم/ـة</p>
       <div class="ar-name" id="certName">—</div>
       <p>قد أتمّ بنجاح البرنامج التدريبي <b>«صياغة الأهداف السلوكية وتفعيلها في تنفيذ خطة الدرس اليومية»</b> واجتاز اختباره البعدي الشامل مستوفياً شرط الإتقان.</p>
       <div class="cert-meta">
         <div>القسم<b id="certDept">—</b></div>
         <div>نسبة الإتقان<b id="certPct">—</b></div>
         <div>التاريخ<b id="certDate">—</b></div>
+      </div>
+
+      <div class="cert-signs">
+        <div class="sign"><span class="sign-line"></span>منسّق التطوير المهني</div>
+        <div class="sign"><span class="sign-line"></span>النائب الأكاديمي</div>
+        <div class="sign"><span class="sign-line"></span>مدير المدرسة</div>
       </div>
     </div>
 
@@ -544,12 +554,15 @@ function issueCertificate(){
   document.getElementById("certDate").textContent=today;
   const payload={
     status:"PASSED",
+    school:"مدرسة ابن خلدون الإعدادية للبنين",
+    issuer:"إدارة مدرسة ابن خلدون الإعدادية للبنين",
     program:"صياغة الأهداف السلوكية وتفعيلها في تنفيذ خطة الدرس اليومية",
     teacher_name:state.name,
     department:state.dept,
     teacher_email:state.email,
     coordinator_email:state.coord,
     vice_academic_email:state.vice,
+    signatories:["منسّق التطوير المهني","النائب الأكاديمي","مدير المدرسة"],
     scores:{
       pre:state.scores.pre.pct,
       unit1:state.scores.u1.pct,
@@ -558,9 +571,20 @@ function issueCertificate(){
     },
     final_percentage:pct,
     issue_date:today,
-    certificate_variables:{ "{{الاسم}}":state.name, "{{القسم}}":state.dept, "{{النسبة}}":pct+"%" }
+    certificate_variables:{ "{{الاسم}}":state.name, "{{القسم}}":state.dept, "{{النسبة}}":pct+"%", "{{المدرسة}}":"مدرسة ابن خلدون الإعدادية للبنين" }
   };
   document.getElementById("payloadBox").textContent=JSON.stringify(payload,null,2);
+
+  /* ===== إرسال الحمولة تلقائياً لبوابة الأتمتة (Make / Zapier) =====
+     استبدل الرابط أدناه برابط الـ Webhook الخاص بك. اتركه كما هو لتعطيل الإرسال. */
+  const WEBHOOK_URL = "ضع_رابط_الـWebhook_هنا";
+  if(WEBHOOK_URL && WEBHOOK_URL.indexOf("http")===0){
+    fetch(WEBHOOK_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    }).catch(e=>console.warn("تعذّر إرسال الحمولة للأتمتة:",e));
+  }
   goStage(5);
 }
 
